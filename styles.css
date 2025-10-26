@@ -184,3 +184,55 @@ header p{margin:0;color:var(--muted);line-height:1.4}
 @media (prefers-reduced-motion: reduce){
   .theme-toggle, .answer-btn, .filter-btn { transition: none }
 }
+
+/* --- Dark mode enforcement and corner toggle positioning ---
+   These rules are added at the end to ensure they override duplicated/earlier rules
+   and provide a consistent dark theme appearance. */
+
+/* Position the theme toggle as a floating control in the top-right corner */
+#themeToggle.theme-toggle {
+  position: fixed !important;
+  top: 16px !important;
+  right: 16px !important;
+  z-index: 1400 !important;
+  padding: 8px 10px !important;
+  border-radius: 10px !important;
+  border: 1px solid rgba(222,232,239,0.7) !important;
+  background: rgba(255,255,255,0.9) !important;
+  color: #0b2636 !important;
+  box-shadow: 0 6px 20px rgba(10,20,40,0.12) !important;
+}
+
+/* Slightly smaller on narrow screens */
+@media (max-width:420px){
+  #themeToggle.theme-toggle{ top:12px; right:12px; padding:6px 8px; font-size:0.9rem }
+}
+
+/* Dark-theme overrides that are placed at the end so they take effect
+   even if earlier blocks mistakenly re-declare variables. */
+[data-theme="dark"]{
+  --bg: #0f1724;
+  --card: #07101a;
+  --muted: #9aa6b2;
+  --blue: #4ea8ff;
+  --accent: #4f8ae1;
+  --success: #50d58b;
+  --warning: #f6a623;
+  --danger: #ff6b6b;
+}
+
+[data-theme="dark"] body{
+  background: linear-gradient(180deg,#07101a,#0f1724) !important;
+  color: #e6eef8 !important;
+}
+
+[data-theme="dark"] header p, [data-theme="dark"] .muted{ color: var(--muted) !important }
+
+[data-theme="dark"] .card{ background: var(--card) !important; box-shadow:0 8px 30px rgba(0,0,0,0.6) !important }
+
+[data-theme="dark"] .guidance-card{ background: var(--card) !important; border-left-color: var(--accent) !important }
+
+[data-theme="dark"] #statusTable th, [data-theme="dark"] #statusTable td{ border-color: rgba(255,255,255,0.04) !important }
+
+[data-theme="dark"] #themeToggle.theme-toggle{ background: var(--card) !important; color: #e6eef8 !important; border-color: rgba(255,255,255,0.06) !important }
+
