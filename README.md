@@ -4,14 +4,14 @@ Pequeña aplicación web (HTML/CSS/JS) para evaluar la madurez de ciberseguridad
 
 Contenido del repositorio
 
-- `diagnostico_ciberseguridad.html` — Página principal (abrir en el navegador). Contiene la UI y plantillas descargables.
+-- `index.html` — Página principal (abrir en el navegador). Contiene la UI y plantillas descargables.
 - `styles.css` — Estilos extraídos para la página.
 - `frameworkData.js` — Fuente de verdad con el mapeo NIST + 56 controles IG1 (resumen).
 - `main.js` — Lógica cliente: flujo del cuestionario, persistencia, generación de resultados y hoja de ruta.
 
 Cómo usar (local)
 
-1. Abra el archivo `diagnostico_ciberseguridad.html` en su navegador (arrastre el archivo al navegador o use "Abrir archivo").
+1. Abra el archivo `index.html` en su navegador (arrastre el archivo al navegador o use "Abrir archivo").
 2. Complete opcionalmente los datos de la empresa (empleados, facturación en CLP, sitio, herramientas de almacenamiento). Si desea que la consultoría reciba los resultados, indique su email en "Email de su consultoría".
 3. Presione "Comenzar Diagnóstico" y responda las preguntas con Sí / No / No estoy seguro.
 4. Puede usar "Volver" para revisar la pregunta anterior.
