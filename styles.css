@@ -44,6 +44,15 @@ header p{margin:0;color:var(--muted);line-height:1.4}
 .answer-btn{flex:1;padding:10px;border-radius:8px;border:1px solid #dfe6ef;background:#fff;cursor:pointer}
 .answer-btn:hover{transform:translateY(-2px)}
 
+/* Smooth theme transition: animate colors and shadows */
+body, .card, .guidance-card, #statusTable th, #statusTable td, .bar-fill, .filter-btn {
+  transition: background-color 240ms ease, color 240ms ease, box-shadow 240ms ease, border-color 240ms ease, fill 240ms ease;
+}
+
+/* Theme icon sizing and spacing */
+.theme-icon svg{ width:18px; height:18px; display:block }
+.theme-label{ font-weight:600 }
+
 /* Results */
 #functionScores{display:grid;grid-template-columns:repeat(1,1fr);gap:10px;margin-top:12px}
 .func-row{display:flex;align-items:center;gap:12px}

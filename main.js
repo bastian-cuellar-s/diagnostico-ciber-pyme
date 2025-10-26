@@ -53,7 +53,11 @@
       const isDark = theme === 'dark';
       const label = isDark ? 'Modo claro' : 'Modo oscuro';
       const icon = isDark ? '🌙' : '☀️';
-      if(iconEl) iconEl.textContent = icon;
+  // Use small inline SVGs for crisp icons instead of emojis
+  const svgSun = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5" fill="currentColor"/><g stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><path d="M12 2v2"/><path d="M12 20v2"/><path d="M4.93 4.93l1.41 1.41"/><path d="M17.66 17.66l1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="M4.93 19.07l1.41-1.41"/><path d="M17.66 6.34l1.41-1.41"/></g></svg>`;
+  const svgMoon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="currentColor"/></svg>`;
+  const iconSvg = isDark ? svgMoon : svgSun;
+  if(iconEl) iconEl.innerHTML = iconSvg;
       if(labelEl) labelEl.textContent = label;
       themeToggle.setAttribute('aria-pressed', isDark);
     }
