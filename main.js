@@ -47,8 +47,15 @@
   function applyTheme(theme){
     document.documentElement.setAttribute('data-theme', theme);
     if(themeToggle){
-      themeToggle.textContent = theme === 'dark' ? 'Modo claro' : 'Modo oscuro';
-      themeToggle.setAttribute('aria-pressed', theme === 'dark');
+      // update icon and label inside the button for clarity
+      const iconEl = themeToggle.querySelector('.theme-icon');
+      const labelEl = themeToggle.querySelector('.theme-label');
+      const isDark = theme === 'dark';
+      const label = isDark ? 'Modo claro' : 'Modo oscuro';
+      const icon = isDark ? '🌙' : '☀️';
+      if(iconEl) iconEl.textContent = icon;
+      if(labelEl) labelEl.textContent = label;
+      themeToggle.setAttribute('aria-pressed', isDark);
     }
     try{ localStorage.setItem('ciberDiag_theme', theme); }catch(e){}
   }
