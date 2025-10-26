@@ -84,6 +84,31 @@ body, .card, .guidance-card, #statusTable th, #statusTable td, .bar-fill, .filte
 .spinner{width:36px;height:36px;border-radius:50%;border:4px solid rgba(0,0,0,0.06);border-top-color:var(--accent);animation:spin .9s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
+/* Import modal layout improvements */
+#importConfirmModal .modal-grid{ display: grid; grid-template-columns: repeat(3, minmax(160px,1fr)); gap:12px; margin-top:8px; align-items:start }
+#importConfirmModal .modal-grid > div{ min-width:0 }
+@media (max-width:720px){ #importConfirmModal .modal-grid{ grid-template-columns: 1fr } }
+
+#importConfirmModal .modal-section ul{ margin:6px 0 0 18px; padding:0; color:var(--muted); }
+
+.changes-controls{ display:flex; gap:8px; align-items:center; justify-content:space-between; flex-wrap:wrap }
+.changes-controls > div:first-child{ display:flex; gap:8px; align-items:center }
+.import-filter{ display:inline-flex; gap:8px; align-items:center; font-size:0.95rem }
+.import-filter select{ padding:6px; border-radius:6px; border:1px solid #dfe6ef; background:var(--card) }
+
+.import-pager{ display:flex; gap:6px; align-items:center }
+.import-pager .modal-btn{ padding:6px 10px; border-radius:6px; border:1px solid #dfe6ef; background:var(--card) }
+.import-pager #importPageIndicator{ min-width:70px; text-align:center; font-weight:700 }
+
+#importChangesList{ max-height:260px; overflow:auto; padding:10px; border-radius:8px; border:1px dashed rgba(0,0,0,0.06); background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent) }
+.import-change-item{ padding:8px 10px; border-radius:8px; margin-bottom:8px; background:transparent; border:1px solid rgba(0,0,0,0.03) }
+.import-change-item .ctrl-id{ font-weight:700; color:var(--accent); margin-right:8px }
+.import-change-item .from-to{ margin-top:6px; color:var(--muted); font-size:0.92rem }
+
+.modal-actions{ margin-top:12px; display:flex; justify-content:flex-end; gap:8px }
+.modal-actions .modal-btn{ padding:8px 12px; border-radius:8px }
+
+
 @media (prefers-reduced-motion: reduce){
   .theme-toggle, .answer-btn, .filter-btn { transition: none }
 }
