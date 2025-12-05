@@ -1,167 +1,139 @@
-/* styles.css - estilos extraídos para Diagnóstico de Ciberseguridad */
-:root{
-  --bg:#f6f8fb; --card:#ffffff; --muted:#6c757d; --blue:#0d6efd;
-  --success:#28a745; --warning:#fd7e14; --danger:#dc3545; --accent:#2b6cb0;
-  --max-width:1100px;
-  --radius:10px;
-}
-/* Dark theme overrides (applied when document element has data-theme="dark") */
-[data-theme="dark"]{
-  --bg: #0f1724;
-  --card: #0b1220;
-  --muted: #9aa6b2;
-  --blue: #4ea8ff;
-  --accent: #4f8ae1;
-  --success: #50d58b;
-  --warning: #f6a623;
-  --danger: #ff6b6b;
-}
-*{box-sizing:border-box}
-body{font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:linear-gradient(180deg,#f8fbff, var(--bg)); color:#111}
-.theme-toggle{transition:background .18s, color .18s, transform .08s}
-.theme-toggle:hover{transform:translateY(-2px)}
-.theme-toggle[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:transparent}
-
-/* adapt text color for dark mode */
-[data-theme="dark"] body{color:#e6eef8}
-[data-theme="dark"] header p{color:var(--muted)}
-[data-theme="dark"] .card{background:var(--card);box-shadow:0 6px 20px rgba(0,0,0,0.5)}
-[data-theme="dark"] .guidance-card{background:var(--card);border-left-color:var(--accent)}
-[data-theme="dark"] #statusTable th, [data-theme="dark"] #statusTable td{border-color:#223041}
-.container{max-width:var(--max-width); margin:28px auto; padding:20px}
-header{display:flex;flex-direction:column;gap:12px;align-items:flex-start}
-header h1{margin:0;font-size:1.6rem;color:var(--accent)}
-header p{margin:0;color:var(--muted);line-height:1.4}
-#startButton{background:var(--blue);color:#fff;border:none;padding:12px 16px;border-radius:8px;cursor:pointer}
-
-/* Assessment module */
-#assessmentModule, #resultsModule{display:none;margin-top:18px}
-.card{background:var(--card);padding:18px;border-radius:var(--radius);box-shadow:0 6px 20px rgba(20,30,60,0.06)}
-#progressBar{height:18px;background:#e9ecef;border-radius:10px;overflow:hidden;margin-bottom:12px}
-#progressFill{height:100%;background:linear-gradient(90deg,var(--accent),var(--blue));width:0%}
-.section-header{display:flex;justify-content:space-between;align-items:center}
-.button-group{display:flex;gap:10px;margin-top:14px}
-.answer-btn{flex:1;padding:10px;border-radius:8px;border:1px solid #dfe6ef;background:#fff;cursor:pointer}
-.answer-btn:hover{transform:translateY(-2px)}
-
-/* Smooth theme transition: animate colors and shadows */
-body, .card, .guidance-card, #statusTable th, #statusTable td, .bar-fill, .filter-btn {
-  transition: background-color 240ms ease, color 240ms ease, box-shadow 240ms ease, border-color 240ms ease, fill 240ms ease;
+body{
+  background: radial-gradient(circle at 10% 10%, #f1f4ff, #f9fbff 45%, #ffffff);
+  min-height: 100vh;
 }
 
-/* Theme icon sizing and spacing */
-.theme-icon svg{ width:18px; height:18px; display:block }
-.theme-label{ font-weight:600 }
-
-/* Results */
-#functionScores{display:grid;grid-template-columns:repeat(1,1fr);gap:10px;margin-top:12px}
-.func-row{display:flex;align-items:center;gap:12px}
-.func-name{width:140px;font-weight:600}
-/* (Removed duplicated block to consolidate variables and rules; primary styles remain above.) */
-.modal-confirm{background:var(--accent);color:#fff}
-.modal-compat{margin-top:8px;color:var(--danger)}
-.import-filter{font-size:0.9rem;color:var(--muted)}
-
-/* Pager and controls inside modal */
-.changes-controls { margin-bottom:8px }
-.changes-controls select{padding:6px;border-radius:6px;border:1px solid #dfe6ef;background:var(--card);min-width:100px}
-.import-pager .modal-btn{padding:6px 10px;border-radius:6px;border:1px solid #dfe6ef;background:var(--card)}
-.import-pager #importPageIndicator{min-width:70px;text-align:center;font-weight:700}
-
-/* item transitions and micro-interactions */
-.import-change-item{transition:transform .12s ease, box-shadow .12s ease, opacity .15s ease}
-.import-change-item:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(20,30,60,0.08)}
-
-/* Modal open/close animation */
-#importConfirmModal.modal-open{animation:fadeIn .18s ease both}
-.modal-panel{transition:transform .18s cubic-bezier(.2,.9,.2,1), opacity .12s ease}
-
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-
-/* Loading overlay inside modal */
-.modal-panel{position:relative}
-.modal-loading{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.4));display:flex;align-items:center;justify-content:center;border-radius:12px;backdrop-filter:blur(2px);}
-.spinner{width:36px;height:36px;border-radius:50%;border:4px solid rgba(0,0,0,0.06);border-top-color:var(--accent);animation:spin .9s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* Import modal layout improvements */
-#importConfirmModal .modal-grid{ display: grid; grid-template-columns: repeat(3, minmax(160px,1fr)); gap:12px; margin-top:8px; align-items:start }
-#importConfirmModal .modal-grid > div{ min-width:0 }
-@media (max-width:720px){ #importConfirmModal .modal-grid{ grid-template-columns: 1fr } }
-
-#importConfirmModal .modal-section ul{ margin:6px 0 0 18px; padding:0; color:var(--muted); }
-
-.changes-controls{ display:flex; gap:8px; align-items:center; justify-content:space-between; flex-wrap:wrap }
-.changes-controls > div:first-child{ display:flex; gap:8px; align-items:center }
-.import-filter{ display:inline-flex; gap:8px; align-items:center; font-size:0.95rem }
-.import-filter select{ padding:6px; border-radius:6px; border:1px solid #dfe6ef; background:var(--card) }
-
-.import-pager{ display:flex; gap:6px; align-items:center }
-.import-pager .modal-btn{ padding:6px 10px; border-radius:6px; border:1px solid #dfe6ef; background:var(--card) }
-.import-pager #importPageIndicator{ min-width:70px; text-align:center; font-weight:700 }
-
-#importChangesList{ max-height:260px; overflow:auto; padding:10px; border-radius:8px; border:1px dashed rgba(0,0,0,0.06); background: linear-gradient(180deg, rgba(0,0,0,0.02), transparent) }
-.import-change-item{ padding:8px 10px; border-radius:8px; margin-bottom:8px; background:transparent; border:1px solid rgba(0,0,0,0.03) }
-.import-change-item .ctrl-id{ font-weight:700; color:var(--accent); margin-right:8px }
-.import-change-item .from-to{ margin-top:6px; color:var(--muted); font-size:0.92rem }
-
-.modal-actions{ margin-top:12px; display:flex; justify-content:flex-end; gap:8px }
-.modal-actions .modal-btn{ padding:8px 12px; border-radius:8px }
-
-
-@media (prefers-reduced-motion: reduce){
-  .theme-toggle, .answer-btn, .filter-btn { transition: none }
+.hero{
+  background: linear-gradient(135deg, #f8fbff 0%, #ffffff 60%, #eef4ff 100%);
+  border: 1px solid #eef2f7;
 }
 
-/* --- Dark mode enforcement and corner toggle positioning ---
-   These rules are added at the end to ensure they override duplicated/earlier rules
-   and provide a consistent dark theme appearance. */
-
-/* Position the theme toggle as a floating control in the top-right corner */
-#themeToggle.theme-toggle {
-  position: fixed !important;
-  top: 16px !important;
-  right: 16px !important;
-  z-index: 1400 !important;
-  padding: 8px 10px !important;
-  border-radius: 10px !important;
-  border: 1px solid rgba(222,232,239,0.7) !important;
-  background: rgba(255,255,255,0.9) !important;
-  color: #0b2636 !important;
-  box-shadow: 0 6px 20px rgba(10,20,40,0.12) !important;
-  display: inline-flex; align-items:center; gap:8px;
+.summary-pill{
+  min-width: 160px;
+  background: #0d6efd0d;
+  border: 1px solid #dbe6ff;
+  border-radius: 18px;
+  padding: 12px 16px;
 }
 
-/* Slightly smaller on narrow screens */
-@media (max-width:420px){
-  #themeToggle.theme-toggle{ top:12px; right:12px; padding:6px 8px; font-size:0.9rem }
+.score-tile{
+  border: 1px dashed #d9e2f3;
 }
 
-/* Dark-theme overrides that are placed at the end so they take effect
-   even if earlier blocks mistakenly re-declare variables. */
-[data-theme="dark"]{
-  --bg: #0f1724;
-  --card: #07101a;
-  --muted: #9aa6b2;
-  --blue: #4ea8ff;
-  --accent: #4f8ae1;
-  --success: #50d58b;
-  --warning: #f6a623;
-  --danger: #ff6b6b;
+.btn-group .btn{font-weight:600}
+
+.table td, .table th{vertical-align: middle}
+
+#wizardCard .lead{font-weight:600}
+
+#resultsTable td:nth-child(4){white-space: nowrap}
+
+@media (max-width: 576px){
+  .summary-pill{width: 100%; text-align:center}
 }
 
-[data-theme="dark"] body{
-  background: linear-gradient(180deg,#07101a,#0f1724) !important;
-  color: #e6eef8 !important;
+/* Dark mode */
+body.dark-mode {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
+  color: #e0e0e0 !important;
 }
 
-[data-theme="dark"] header p, [data-theme="dark"] .muted{ color: var(--muted) !important }
+body.dark-mode .hero {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 60%, #1a2540 100%) !important;
+  border-color: #374151 !important;
+  color: #e0e0e0;
+}
 
-[data-theme="dark"] .card{ background: var(--card) !important; box-shadow:0 8px 30px rgba(0,0,0,0.6) !important }
+body.dark-mode .card,
+body.dark-mode .score-tile,
+body.dark-mode .table {
+  background-color: #1f2937 !important;
+  color: #e0e0e0 !important;
+  border-color: #374151 !important;
+}
 
-[data-theme="dark"] .guidance-card{ background: var(--card) !important; border-left-color: var(--accent) !important }
+body.dark-mode .table th {
+  background-color: #111827 !important;
+  color: #e0e0e0 !important;
+  border-color: #374151 !important;
+}
 
-[data-theme="dark"] #statusTable th, [data-theme="dark"] #statusTable td{ border-color: rgba(255,255,255,0.04) !important }
+body.dark-mode .table td {
+  border-color: #374151 !important;
+  color: #e0e0e0 !important;
+}
 
-[data-theme="dark"] #themeToggle.theme-toggle{ background: var(--card) !important; color: #e6eef8 !important; border-color: rgba(255,255,255,0.06) !important }
+body.dark-mode .btn-outline-primary {
+  color: #60a5fa !important;
+  border-color: #60a5fa !important;
+}
+
+body.dark-mode .btn-outline-primary:hover {
+  background-color: #60a5fa !important;
+  border-color: #60a5fa !important;
+  color: #1f2937 !important;
+}
+
+body.dark-mode .btn-outline-danger {
+  color: #f87171 !important;
+  border-color: #f87171 !important;
+}
+
+body.dark-mode .btn-outline-danger:hover {
+  background-color: #f87171 !important;
+  border-color: #f87171 !important;
+  color: #1f2937 !important;
+}
+
+body.dark-mode .btn-outline-secondary {
+  color: #9ca3af !important;
+  border-color: #9ca3af !important;
+}
+
+body.dark-mode .btn-outline-secondary:hover {
+  background-color: #9ca3af !important;
+  border-color: #9ca3af !important;
+  color: #1f2937 !important;
+}
+
+body.dark-mode .btn-link {
+  color: #60a5fa !important;
+}
+
+body.dark-mode .text-secondary {
+  color: #9ca3af !important;
+}
+
+body.dark-mode .badge.text-bg-light {
+  background-color: #374151 !important;
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .badge.text-bg-primary {
+  background-color: #1e40af !important;
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .progress {
+  background-color: #374151 !important;
+}
+
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4, 
+body.dark-mode h5 {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode #themeToggle {
+  background-color: #1f2937 !important;
+  color: #fbbf24 !important;
+  border-color: #374151 !important;
+}
+
+body.dark-mode #themeToggle:hover {
+  background-color: #374151 !important;
+  border-color: #60a5fa !important;
+}
 

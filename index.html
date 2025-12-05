@@ -2,195 +2,116 @@
 <html lang="es">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Diagnóstico y Hoja de Ruta de Ciberseguridad para su PyME</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diagnóstico de Ciberseguridad para PyMEs</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Diagnóstico y Hoja de Ruta de Ciberseguridad para su PyME</h1>
-      <p>En el entorno digital actual, las PyMEs son un objetivo principal para los ciberdelincuentes. Sabemos que la ciberseguridad puede parecer compleja y costosa. Esta herramienta gratuita, basada en estándares internacionales como NIST y CIS Controls, está diseñada para ofrecerle un punto de partida claro, práctico y adaptado a su realidad. En pocos minutos, podrá evaluar su nivel de madurez y obtener una hoja de ruta personalizada para proteger su negocio.</p>
+  <button id="themeToggle" class="btn btn-sm btn-outline-secondary position-fixed" style="top: 16px; right: 16px; z-index: 1000;" title="Cambiar tema">🌙</button>
 
-        <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
-          <button id="themeToggle" class="theme-toggle" aria-pressed="false">
-            <span class="theme-icon" aria-hidden="true">☀️</span>
-            <span class="theme-label">Modo oscuro</span>
-          </button>
+  <main id="app" class="container py-4">
+    <section class="hero shadow-sm p-4 p-lg-5 mb-4 rounded-4 bg-white">
+      <div class="d-flex flex-wrap align-items-start gap-3">
+        <div class="flex-grow-1">
+          <p class="badge text-bg-primary mb-2">MVP sin instalaciones</p>
+          <h1 class="fw-bold mb-2">Diagnóstico rápido de ciberseguridad para tu PyME</h1>
+          <p class="text-secondary mb-3">Basado en NIST CSF. Responde pocas preguntas, guarda tu avance en el navegador y genera un radar con tus resultados y una hoja de ruta con recomendaciones inmediatas.</p>
+          <div class="d-flex flex-wrap gap-2">
+            <button id="startBtn" class="btn btn-primary">Comenzar diagnóstico</button>
+            <button id="demoBtn" class="btn btn-outline-success">Demo (5 preguntas)</button>
+            <button id="resumeBtn" class="btn btn-outline-primary">Continuar donde lo dejé</button>
+            <button id="clearBtn" class="btn btn-outline-danger">Borrar datos</button>
+          </div>
+          <small class="text-secondary d-block mt-2">Todo se guarda en tu navegador con <code>localStorage</code>. No hay envíos al servidor.</small>
         </div>
-
-      <!-- Pre-assessment form: metadatos de la empresa -->
-      <div id="preAssessment" class="card" style="width:100%;margin-top:12px">
-        <h3>Información básica de su empresa (opcional, ayuda a priorizar recomendaciones)</h3>
-        <div style="display:flex;flex-wrap:wrap;gap:10px">
-          <label style="flex:1;min-width:180px">Tamaño (nº empleados)
-            <input id="inputEmployees" type="number" min="0" placeholder="Ej. 8" style="width:100%;padding:8px;margin-top:6px;border-radius:6px;border:1px solid #e6eef8">
-          </label>
-          <label style="flex:1;min-width:180px">Facturación anual aprox. (CLP)
-            <input id="inputRevenue" type="number" min="0" placeholder="Ej. 250000" style="width:100%;padding:8px;margin-top:6px;border-radius:6px;border:1px solid #e6eef8">
-          </label>
-          <label style="flex:1;min-width:180px">¿Tiene sitio web o servicios en la nube?
-            <select id="inputHasWebsite" style="width:100%;padding:8px;margin-top:6px;border-radius:6px;border:1px solid #e6eef8">
-              <option value="no">No</option>
-              <option value="yes">Sí</option>
-            </select>
-          </label>
-          <label style="flex:1 1 100%">Herramientas que usa para guardar/almacenar datos (ej. Google Drive, Dropbox, servidor propio)
-            <input id="inputStorageTools" type="text" placeholder="Escriba brevemente: p.ej. Google Drive, hosting propio" style="width:100%;padding:8px;margin-top:6px;border-radius:6px;border:1px solid #e6eef8">
-          </label>
-          <label style="flex:1 1 100%">Email de su consultoría (opcional — donde enviar resultados)
-            <input id="inputConsultancyEmail" type="email" placeholder="consultoria@suempresa.com" style="width:100%;padding:8px;margin-top:6px;border-radius:6px;border:1px solid #e6eef8">
-          </label>
-        </div>
-        <div style="margin-top:12px">
-            <button id="startButton">Comenzar Diagnóstico</button>
-            <button id="saveProgressTop" style="margin-left:8px;padding:8px;border-radius:8px;border:1px solid #dfe6ef;background:#fff;">Guardar progreso</button>
-            <button id="loadProgressTop" style="margin-left:8px;padding:8px;border-radius:8px;border:1px solid #dfe6ef;background:#fff;">Cargar progreso</button>
-      <button id="importProgressBtn" style="margin-left:8px;padding:8px;border-radius:8px;border:1px solid #dfe6ef;background:#fff;">Importar progreso (JSON)</button>
-      <input id="importProgressFile" type="file" accept="application/json" style="display:none" />
+        <div class="summary-pill text-center">
+          <div class="small text-secondary">Puntuación actual</div>
+          <div id="pillScore" class="display-5 fw-bold text-primary">--%</div>
+          <div class="small text-secondary">Se actualiza al contestar</div>
         </div>
       </div>
-    </header>
+    </section>
 
-    <!-- Modal de confirmación para importación -->
-    <div id="importConfirmModal" class="modal-backdrop" role="dialog" aria-hidden="true">
-      <div class="modal-panel" role="document">
-        <div id="importLoading" class="modal-loading" style="display:none"><div class="spinner" aria-hidden="true"></div></div>
-        <h3>Confirmar importación de progreso</h3>
-        <p id="importSummaryText" class="muted"></p>
-        <div class="modal-grid">
-          <div><strong>Versión de esquema:</strong> <span id="importSummarySchema">-</span></div>
-          <div><strong>Respuestas en archivo:</strong> <span id="importSummaryResultsCount">-</span></div>
-          <div><strong>Controles esperados:</strong> <span id="importSummaryExpected">-</span></div>
+    <section id="wizardCard" class="card border-0 shadow-sm mb-4 d-none">
+      <div class="card-body p-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <div class="text-uppercase text-secondary fw-semibold small" id="stepLabel">Paso 1 de 5</div>
+            <h2 class="h4 mb-0" id="categoryTitle">Identificar</h2>
+          </div>
+          <span class="badge rounded-pill bg-light text-secondary" id="questionId">ID.AM-1</span>
         </div>
-        <div class="modal-section"><strong>Metadatos incluidos:</strong>
-          <ul id="importSummaryMeta" class="muted" ></ul>
+        <div class="progress rounded-pill mb-3" style="height: 10px;">
+          <div id="progressBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
         </div>
-        <div class="modal-section modal-changes">
-          <div class="changes-controls" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between">
-            <div style="display:flex;gap:8px;align-items:center">
-              <strong>Cambios detectados:</strong>
-              <label class="import-filter"><input id="importOnlyDiffs" type="checkbox"> Mostrar solo diferencias</label>
-            </div>
-            <div style="display:flex;gap:8px;align-items:center">
-              <label class="import-filter">Función: <select id="importFilterFunction"><option value="all">Todos</option></select></label>
-              <label class="import-filter">Prioridad: <select id="importFilterPriority"><option value="all">Todas</option><option value="Alta">Alta</option><option value="Media">Media</option><option value="Baja">Baja</option></select></label>
-              <label class="import-filter">Por página: <select id="importPageSize"><option>10</option><option>20</option><option>50</option></select></label>
-              <div class="import-pager" style="display:flex;gap:6px;align-items:center"><button id="importPagePrev" class="modal-btn">◀</button><span id="importPageIndicator">1 / 1</span><button id="importPageNext" class="modal-btn">▶</button></div>
+        <p class="lead" id="questionText">...</p>
+        <div class="btn-group w-100 mb-3" role="group" aria-label="Opciones de respuesta">
+          <button type="button" class="btn btn-outline-success" data-answer="yes">Sí</button>
+          <button type="button" class="btn btn-outline-danger" data-answer="no">No</button>
+          <button type="button" class="btn btn-outline-secondary" data-answer="unsure">No estoy seguro</button>
+        </div>
+        <div class="d-flex justify-content-between align-items-center gap-2">
+          <button id="prevBtn" class="btn btn-link text-decoration-none">← Anterior</button>
+          <div class="ms-auto d-flex gap-2">
+            <button id="saveBtn" class="btn btn-outline-secondary">Guardar</button>
+            <button id="nextBtn" class="btn btn-primary">Siguiente</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="resultsCard" class="card border-0 shadow-sm mb-4 d-none">
+      <div class="card-body p-4" id="report">
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+          <div>
+            <p class="text-secondary mb-1">Resumen</p>
+            <h2 class="h4 mb-0">Resultados por función NIST</h2>
+          </div>
+          <div class="d-flex gap-2">
+            <button id="downloadPdfBtn" class="btn btn-outline-secondary">Descargar PDF</button>
+            <button id="restartBtn" class="btn btn-primary">Reiniciar</button>
+          </div>
+        </div>
+        <div class="row g-3 align-items-center">
+          <div class="col-12 col-lg-4">
+            <div class="score-tile text-center p-4 rounded-4 bg-light">
+              <div class="text-secondary small">Puntaje general</div>
+              <div id="overallScore" class="display-4 fw-bold text-primary">--%</div>
+              <div id="answeredCount" class="text-secondary small">0 de 0 respondidas</div>
             </div>
           </div>
-          <div id="importChangesList" class="changes-list" aria-live="polite"></div>
+          <div class="col-12 col-lg-8">
+            <canvas id="radarChart" height="180" aria-label="Radar de funciones NIST" role="img"></canvas>
+          </div>
         </div>
-        <div id="importSummaryCompat" class="modal-compat"></div>
-        <div class="modal-actions">
-          <button id="importCancelBtn" class="modal-btn modal-cancel">Cancelar</button>
-          <button id="importConfirmBtn" class="modal-btn modal-confirm">Confirmar e Importar</button>
-        </div>
-      </div>
-    </div>
 
-    <!-- Assessment Module (hidden initially) -->
-    <section id="assessmentModule" class="card" aria-hidden="true">
-      <div id="progressBar"><div id="progressFill"></div></div>
-      <div class="section-header">
-        <h2 id="sectionTitle">Sección</h2>
-        <div id="sectionMeta" style="color:var(--muted)">Paso <span id="currentStep">1</span> de <span id="totalSteps">6</span></div>
-      </div>
-      <p id="sectionIntro">Introducción a la sección.</p>
-      <div id="questionContainer" style="margin-top:12px">
-        <p id="questionText" style="font-weight:600">Pregunta...</p>
-        <div class="button-group">
-          <button class="answer-btn" data-answer="yes">Sí</button>
-          <button class="answer-btn" data-answer="no">No</button>
-          <button class="answer-btn" data-answer="unsure">No estoy seguro</button>
-        </div>
-        <div style="display:flex;gap:8px;margin-top:12px">
-          <button id="backButton" class="answer-btn" style="flex:0 0 140px;background:#fff;border:1px solid #d0d8e6">Volver</button>
-          <div style="flex:1"></div>
+        <hr class="my-4" />
+        <h3 class="h5 mb-2">Recomendaciones inmediatas</h3>
+        <p class="text-secondary small">Se listan los controles respondidos como "No" o "No estoy seguro".</p>
+        <div class="table-responsive">
+          <table class="table align-middle" id="resultsTable">
+            <thead class="table-light">
+              <tr>
+                <th>Función</th>
+                <th>ID</th>
+                <th>Control</th>
+                <th>Respuesta</th>
+                <th>Recomendación</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
         </div>
       </div>
     </section>
+  </main>
 
-    <!-- Results Module -->
-    <section id="resultsModule" class="card" aria-hidden="true">
-      <h2>Su Diagnóstico de Ciberseguridad</h2>
-      <div id="summary" style="display:flex;gap:18px;align-items:center;margin-top:10px;flex-wrap:wrap">
-        <div style="flex:0 0 180px;background:linear-gradient(180deg,#fff,#f7fbff);padding:16px;border-radius:10px;text-align:center;box-shadow:0 4px 12px rgba(20,30,60,0.04)">
-          <div style="font-size:2.6rem;font-weight:800;color:var(--accent)" id="overallScore">0%</div>
-          <div style="color:var(--muted)">Nivel de Madurez General</div>
-        </div>
-        <div style="flex:1;min-width:220px">
-          <div id="functionScores"></div>
-        </div>
-      </div>
-        <div id="resultsConclusions" style="margin-top:12px"></div>
-
-      <h3 style="margin-top:18px">Estado detallado de controles</h3>
-      <div style="overflow:auto;max-height:320px">
-        <table id="statusTable">
-          <thead>
-            <tr><th>Función NIST</th><th>ID</th><th>Salvaguarda</th><th>Estado Actual</th><th>Acción / Guía</th></tr>
-          </thead>
-          <tbody id="statusBody"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Roadmap Module -->
-    <section id="roadmapModule">
-      <h2>Su Hoja de Ruta Personalizada</h2>
-      <p>A continuación se detallan los pasos prácticos para implementar los controles que se identificaron como pendientes o inciertos en su diagnóstico. Concéntrese en estos puntos para mejorar significativamente su seguridad.</p>
-      <div id="roadmapFilters" style="margin-top:10px"></div>
-      <div id="guidanceContainer"></div>
-    </section>
-
-    <style media="print">
-      /* Make printable view clean */
-      body{background:#fff}
-      header, #preAssessment, #roadmapFilters, .filter-btn { display: none !important; }
-      #resultsModule, #roadmapModule{box-shadow:none;border:none}
-      .guidance-card{page-break-inside:avoid}
-    </style>
-
-    <!-- Templates (hidden) -->
-    <template id="template-pua">
-# Política de Uso Aceptable de [Nombre de la Empresa]
-
-1.  **Propósito:** Establecer las reglas para el uso de los sistemas de información, internet, correo electrónico y otros recursos de [Nombre de la Empresa].
-2.  **Uso General:** Los recursos de TI se deben utilizar principalmente para fines laborales. Un uso personal limitado y razonable está permitido siempre que no interfiera con las responsabilidades laborales ni viole esta política.
-3.  **Actividades Prohibidas:** Se prohíbe estrictamente el uso de los recursos de la empresa para:
-    - Actividades ilegales, fraudulentas, ofensivas o acosadoras.
-    - Descargar, instalar o distribuir software sin licencia (pirata) o no autorizado.
-    - Acceder, descargar o distribuir material pornográfico, violento o discriminatorio.
-    - Intentar eludir las medidas de seguridad de la empresa.
-4.  **Seguridad:** Los empleados deben mantener la seguridad de sus cuentas y no compartir sus contraseñas. Deben reportar cualquier actividad sospechosa inmediatamente.
-    </template>
-
-    <template id="template-pass">
-# Política de Contraseñas de [Nombre de la Empresa]
-
-1.  **Propósito:** Asegurar que todas las cuentas de usuario estén protegidas con contraseñas robustas para prevenir el acceso no autorizado.
-2.  **Complejidad:** Las contraseñas deben tener un mínimo de 12 caracteres y contener una mezcla de letras mayúsculas, minúsculas, números y símbolos.
-3.  **Confidencialidad:** Las contraseñas son información confidencial y no deben ser compartidas con nadie, ni escritas en lugares visibles.
-4.  **Cambio:** Las contraseñas de sistemas críticos deben ser cambiadas cada 90 días.
-5.  **Reutilización:** No se deben reutilizar contraseñas antiguas. Se debe utilizar una contraseña única para cada servicio. Se recomienda el uso de un gestor de contraseñas.
-    </template>
-
-    <template id="template-backup">
-# Política de Copias de Seguridad de [Nombre de la Empresa]
-
-1.  **Propósito:** Garantizar que los datos críticos de [Nombre de la Empresa] puedan ser recuperados de forma rápida y segura en caso de un incidente.
-2.  **Alcance:** Se realizarán copias de seguridad de todos los datos identificados como críticos para la operación del negocio.
-3.  **Frecuencia:** Se realizarán copias de seguridad de los datos críticos diariamente.
-4.  **Almacenamiento (Regla 3-2-1):** Se mantendrán al menos tres copias de los datos, en dos tipos de medios diferentes, con al menos una copia almacenada en una ubicación aislada y segura (fuera de la oficina o en una nube segura).
-5.  **Pruebas:** Se realizarán pruebas de restauración de las copias de seguridad de forma trimestral para verificar su integridad y funcionalidad.
-6.  **Cifrado:** Las copias de seguridad que contengan información sensible serán cifradas.
-    </template>
-
-  </div>
-
-  <!-- Carga modular: datos del framework y la lógica principal -->
-  <script src="frameworkData.js"></script>
-  <script src="main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
